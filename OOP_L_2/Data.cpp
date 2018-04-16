@@ -41,3 +41,7 @@ ostream & operator << (ostream & left, const Date & right)
 	left << right.day << '.' << right.month << '.' << right.year;
 		return left;
 }
+bool Date::operator < (Date & r)
+{
+	return year * 12 * 31 + month * 31 + day < r.year * 12 * 31 + r.month * 31 + r.day
+}

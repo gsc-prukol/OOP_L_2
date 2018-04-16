@@ -18,4 +18,5 @@ public:
 	Date & SetM(int m);
 	Date & SetY(int y) { year = y; return *this; }
 	friend ostream & operator << (ostream & left, const Date & right);
+	bool operator < (Date & right);
 };

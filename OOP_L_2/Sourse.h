@@ -12,6 +12,7 @@ public:
 	PartyQueue(string & Surname, string & Phone, Date & Date);
 	PartyQueue( const PartyQueue &  sourse);
 	~PartyQueue();
+	bool operator < (PartyQueue & right);
 };
 class QueueHousing
 {

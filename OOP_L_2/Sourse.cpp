@@ -22,3 +22,13 @@ PartyQueue::~PartyQueue()
 	phone.~string();
 	date.~Date();
 }
+bool PartyQueue::operator < (PartyQueue & right)
+{
+	return this->date < right.date;
+}
+////////////////////////////////////////////////////////////////////////////////
+QueueHousing::QueueHousing()
+{
+
+}
+
