@@ -1,6 +1,6 @@
 #include <ctime>
 #include <iostream>
-
+//#include "Data.cpp"
 using namespace std;
 class Date
 {
@@ -20,4 +20,5 @@ public:
 	friend ostream & operator << (ostream & left, const Date & right);
 	bool operator < (Date & right);
 	bool operator == (Date & right);
+	Date & operator = (Date & right);
 };

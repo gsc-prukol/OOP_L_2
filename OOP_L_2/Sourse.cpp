@@ -1,8 +1,10 @@
 #include "Sourse.h"
+#include "Data.h"
 PartyQueue::PartyQueue()
 {
-	surname = "Surname";
-	phone = "+1 202 - 456 - 1111";
+	surname = string("Surname");
+	phone = string("+1 202 - 456 - 1111");
+//	date = Date();
 }
 PartyQueue::PartyQueue(string & Surname, string & Phone, Date & Date)
 {
@@ -16,15 +18,15 @@ PartyQueue::PartyQueue(const PartyQueue &  sourse)
 	phone = sourse.phone;
 	date = sourse.date;
 }
-PartyQueue::~PartyQueue()
+/*PartyQueue::~PartyQueue()
 {
-	surname.~string();
-	phone.~string();
-	date.~Date();
-}
-bool PartyQueue::operator < (PartyQueue & right)
+//	surname.~string();
+//	phone.~string();
+	//date.~Date();
+}*/
+bool operator < (const PartyQueue & left,const PartyQueue & right)
 {
-	return this->date < right.date;
+	return left.date < right.date;
 }
 ////////////////////////////////////////////////////////////////////////////////
 

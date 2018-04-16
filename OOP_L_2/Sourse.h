@@ -1,6 +1,7 @@
 #include <iostream>
 #include <queue> 
 #include "Data.h"
+//#include "Sourse.h"
 using namespace std;
 
 class PartyQueue
@@ -11,8 +12,8 @@ public:
 	PartyQueue();
 	PartyQueue(string & Surname, string & Phone, Date & Date);
 	PartyQueue( const PartyQueue &  sourse);
-	~PartyQueue();
-	bool operator < (PartyQueue & right);
+//	~PartyQueue();
+	friend bool operator < (const PartyQueue & left, const PartyQueue & right);
 };
 class QueueHousing
 {

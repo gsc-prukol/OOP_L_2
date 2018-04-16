@@ -3,7 +3,9 @@
 
 #include "stdafx.h"
 #include <iostream>
-#include "Sourse.h"
+#include "Sourse.cpp"
+#include "Data.cpp"
+
 using namespace std;
 /*
 Варіант 7
@@ -14,12 +16,22 @@ using namespace std;
 - додавання нового елемента в чергу ( постановлення на облік нового
 учасника);
 - вилучення учасників, що отримали житло ( по черзі).
-Пероедбачити виключні ситуації: дата постановки на облік більга за 
+Пероедбачити виключні ситуації: дата постановки на облік більга за
 поточну; дата постановлення на облік не дорівнює поточній для нових учасників.
 */
 
 int main()
 {
+	PartyQueue  a;
+//	a = new PartyQueue;
+
+	for (int i = 0; i < 30; i++)
+	{
+//		a[i] = PartyQueue(string("Li Chhoo An'"), string("+1 202 - 456 - 1111"), Date( i+1, i / 4 +1, 2000+i * 5));
+	}
+//	QueueHousing b(a, 30);
+//	cout << b.longQueue() << endl;
+	system("pause");
+
     return 0;
 }
-

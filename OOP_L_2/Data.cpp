@@ -1,4 +1,28 @@
-#include "Data.h"
+#include <ctime>
+#include <iostream>
+
+using namespace std;
+
+class Date
+{
+private:
+	int year, month, day;
+public:
+	Date();
+	Date(int d, int m, int y);
+	Date(const Date & course);
+	int GetD() { return day; }
+	int GetM() { return month; }
+	int GetY() { return year; }
+//	~date() { cout << "~date()"<<endl; }
+	Date & SetD(int d);
+	Date & SetM(int m);
+	Date & SetY(int y) { year = y; return *this; }
+	friend ostream & operator << (ostream & left, const Date & right);
+	bool operator < (Date & right);
+	bool operator == (Date & right);
+	Date & operator = (Date & right);
+};
 Date & Date::SetD(int D)
 {
 	day = ((D-1) % 31) + 1;
@@ -24,9 +48,11 @@ Date::Date()
 }
 Date::Date(int d, int m, int y)
 {
-	day = d;
-	month = m;
+
+
 	year = y;
+	SetM(m);
+	SetD(d);
 //	cout << "date(int d, int m, int y)" << endl;
 }
 Date::Date(const Date & right)
@@ -48,4 +74,11 @@ bool Date::operator < (Date & r)
 bool Date::operator == (Date & r)
 {
 	return (year == r.year) && (month == r.month) && (day == r.day);
+}
+
+Date & Date::operator = (Date & r);
+{
+	year = r.year;
+	day = r.day;
+	month = r.month;
 }
