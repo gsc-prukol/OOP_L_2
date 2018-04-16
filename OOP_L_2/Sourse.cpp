@@ -3,6 +3,8 @@
 #include <ctime>
 
 using namespace std;
+class future_date {};
+class not_date {};
 class Date
 {
 private:
@@ -25,7 +27,6 @@ public:
 Date & Date::SetD(int D)
 {
 	day = ((D - 1) % 31) + 1;
-	SetM((D - 1) / 31);
 	return *this;
 }
 Date & Date::SetM(int M)
@@ -70,7 +71,6 @@ bool Date::operator == (Date & r)
 {
 	return (year == r.year) && (month == r.month) && (day == r.day);
 }
-
 Date & Date::operator = (const Date & r)
 {
 	year = r.year;
@@ -78,7 +78,6 @@ Date & Date::operator = (const Date & r)
 	month = r.month;
 	return *this;
 }
-
 class PartyQueue
 {
 	string surname, phone;
@@ -87,6 +86,7 @@ public:
 	PartyQueue();
 	PartyQueue(string & Surname, string & Phone, Date & Date);
 	PartyQueue( const  PartyQueue &  sourse);
+	Date & GetD() { return date; }
 	//	~PartyQueue();
 	friend bool operator < (const PartyQueue & left, const PartyQueue & right);
 };
@@ -99,9 +99,24 @@ public:
 	QueueHousing( PartyQueue & sourse);
 	//	~QueueHousing();
 	size_t longQueue() { return data.size(); }
-	void push(PartyQueue & element) { data.push(element); }
-	PartyQueue pop() { data.pop(); }
+	void push(PartyQueue & element);// { data.push(element); }
+	void pop() { data.pop(); }
+	PartyQueue  top();// {return  data.top(); }
 };
+PartyQueue   QueueHousing::top()
+{
+	PartyQueue c = data.top();
+	try
+	{
+		if (Date() < c.GetD())
+			throw future_date();
+	}
+	catch (future_date)
+	{
+		cerr << "Date is in future" << endl;
+	}
+	return c;
+}
 PartyQueue::PartyQueue()
 {
 	surname = string("Surname");
@@ -130,13 +145,26 @@ bool operator < (const PartyQueue & left,const PartyQueue & right)
 {
 	return left.date < right.date;
 }
-////////////////////////////////////////////////////////////////////////////////
-
 QueueHousing::QueueHousing( PartyQueue * sourse, int n)
 {
 	for (int i = 0; i < n; i++)
 	{
 		data.push(sourse[i]);
 	}
+
+}
+void QueueHousing::push(PartyQueue & element)
+{
+	try 
+	{
+		if (!(element.GetD() == Date()))
+			throw not_date();
+		data.push(element);
+	}
+	catch (not_date)
+	{
+		cerr << "Date is incorect" << endl;
+	}
+//	data.push(element);
 }
 

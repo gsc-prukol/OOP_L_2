@@ -26,9 +26,11 @@ int main()
 
 	for (int i = 0; i < 30; i++)
 	{
-		a[i] = PartyQueue(string("Li Chhoo An'"), string("+1 202 - 456 - 1111"), Date( i+1, i / 4 +1, 2000+i * 5));
+		a[i] = PartyQueue(string("Li Chhoo An'"), string("+1 202 - 456 - 1111"), Date( i+1, i/ 5 + 6 , 2000+i));
 	}
 	QueueHousing b(a, 30);
+	cout << b.longQueue() << endl;
+	b.push(b.top());
 	cout << b.longQueue() << endl;
 	system("pause");
 
