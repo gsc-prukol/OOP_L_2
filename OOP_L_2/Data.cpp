@@ -10,11 +10,10 @@ private:
 public:
 	Date();
 	Date(int d, int m, int y);
-	Date(const Date & course);
+	Date(Date & course);
 	int GetD() { return day; }
 	int GetM() { return month; }
 	int GetY() { return year; }
-//	~date() { cout << "~date()"<<endl; }
 	Date & SetD(int d);
 	Date & SetM(int m);
 	Date & SetY(int y) { year = y; return *this; }
@@ -46,21 +45,17 @@ Date::Date()
 	year = timeinfo->tm_year + 1900;
 //	cout << "date()" << endl;
 }
-Date::Date(int d, int m, int y)
+Date :: Date(int d, int m, int y)
 {
-
-
 	year = y;
 	SetM(m);
 	SetD(d);
-//	cout << "date(int d, int m, int y)" << endl;
 }
-Date::Date(const Date & right)
+Date::Date(Date & right)
 {
 	day = right.day;
 	month = right.month;
 	year = right.year;
-//	cout << "date(date & right)" << endl;
 }
 ostream & operator << (ostream & left, const Date & right)
 {
@@ -69,16 +64,17 @@ ostream & operator << (ostream & left, const Date & right)
 }
 bool Date::operator < (Date & r)
 {
-	return year * 12 * 31 + month * 31 + day < r.year * 12 * 31 + r.month * 31 + r.day
+	return year * 12 * 31 + month * 31 + day < r.year * 12 * 31 + r.month * 31 + r.day;
 }
 bool Date::operator == (Date & r)
 {
 	return (year == r.year) && (month == r.month) && (day == r.day);
 }
 
-Date & Date::operator = (Date & r);
+Date & Date::operator = (Date & r)
 {
 	year = r.year;
 	day = r.day;
 	month = r.month;
+	return *this;
 }
