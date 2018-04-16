@@ -27,8 +27,12 @@ bool PartyQueue::operator < (PartyQueue & right)
 	return this->date < right.date;
 }
 ////////////////////////////////////////////////////////////////////////////////
-QueueHousing::QueueHousing()
-{
 
+QueueHousing::QueueHousing(PartyQueue * sourse, int n)
+{
+	for (int i = 0; i < n; i++)
+	{
+		data.push(sourse[i]);
+	}
 }
 

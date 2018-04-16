@@ -18,10 +18,10 @@ class QueueHousing
 {
 	priority_queue <PartyQueue> data;
 public:
-	QueueHousing();
+	QueueHousing() {};
 	QueueHousing(PartyQueue * sourse, int n);
-	~QueueHousing();
-	int longQueue();
-	void push(PartyQueue & element);
-	PartyQueue pop();
+//	~QueueHousing();
+	size_t longQueue() { return data.size(); }
+	void push(PartyQueue & element) { data.push(element); }
+	PartyQueue pop() { data.pop(); }
 };

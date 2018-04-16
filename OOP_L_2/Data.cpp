@@ -45,3 +45,7 @@ bool Date::operator < (Date & r)
 {
 	return year * 12 * 31 + month * 31 + day < r.year * 12 * 31 + r.month * 31 + r.day
 }
+bool Date::operator == (Date & r)
+{
+	return (year == r.year) && (month == r.month) && (day == r.day);
+}
