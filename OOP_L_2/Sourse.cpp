@@ -1,6 +1,7 @@
 #include <iostream>
 #include <queue> 
 #include <ctime>
+#include <string>
 
 using namespace std;
 class future_date {};
@@ -89,6 +90,7 @@ public:
 	Date & GetD() { return date; }
 	//	~PartyQueue();
 	friend bool operator < (const PartyQueue & left, const PartyQueue & right);
+	friend ostream & operator << (ostream & buff, PartyQueue & right);
 };
 class QueueHousing
 {
@@ -143,7 +145,7 @@ PartyQueue::PartyQueue(const PartyQueue &  sourse)
 }*/
 bool operator < (const PartyQueue & left,const PartyQueue & right)
 {
-	return left.date < right.date;
+	return !(left.date < right.date);
 }
 QueueHousing::QueueHousing( PartyQueue * sourse, int n)
 {
@@ -167,4 +169,8 @@ void QueueHousing::push(PartyQueue & element)
 	}
 //	data.push(element);
 }
-
+ostream & operator << (ostream & buff, PartyQueue & r)
+{
+	buff << r.surname << "; " << r.phone << "; " << r.date;
+	return buff;
+}
