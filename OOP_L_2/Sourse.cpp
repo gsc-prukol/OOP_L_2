@@ -1,5 +1,6 @@
 #include <iostream>
-#include <queue> 
+#include <queue>
+#include <map>
 #include <ctime>
 #include <string>
 
@@ -13,7 +14,7 @@ private:
 public:
 	Date();
 	Date(int d, int m, int y);
-	Date(Date & course);
+	Date(const Date & course);
 	int GetD() { return day; }
 	int GetM() { return month; }
 	int GetY() { return year; }
@@ -22,7 +23,7 @@ public:
 	Date & SetY(int y) { year = y; return *this; }
 	friend ostream & operator << (ostream & left, const Date & right);
 	friend bool operator < (const Date & l, const Date & right);
-	bool operator == (Date & right);
+	bool operator == (const Date & right);
 	Date & operator = (const Date & r);
 };
 Date & Date::SetD(int D)
@@ -53,7 +54,7 @@ Date::Date(int d, int m, int y)
 	SetM(m);
 	SetD(d);
 }
-Date::Date(Date & right)
+Date::Date(const Date & right)
 {
 	day = right.day;
 	month = right.month;
@@ -68,7 +69,7 @@ ostream & operator << (ostream & left, const Date & right)
 {
 	return l.year * 12 * 31 + l.month * 31 + l.day < r.year * 12 * 31 + r.month * 31 + r.day;
 }
-bool Date::operator == (Date & r)
+bool Date::operator == (const Date & r)
 {
 	return (year == r.year) && (month == r.month) && (day == r.day);
 }
@@ -89,28 +90,34 @@ public:
 	PartyQueue( const  PartyQueue &  sourse);
 	Date & GetD() { return date; }
 	//	~PartyQueue();
-	friend bool operator < (const PartyQueue & left, const PartyQueue & right);
+//	friend bool operator < (const PartyQueue & left, const PartyQueue & right);
 	friend ostream & operator << (ostream & buff, PartyQueue & right);
 };
 class QueueHousing
 {
-	priority_queue <PartyQueue> data;
+	map < Date, PartyQueue> data;
 public:
 	QueueHousing() {};
-	QueueHousing(PartyQueue * sourse, int n);
+	QueueHousing(PartyQueue * sourse, Date * key, int n);
 	QueueHousing( PartyQueue & sourse);
 	//	~QueueHousing();
 	size_t longQueue() { return data.size(); }
-	void push(PartyQueue & element);// { data.push(element); }
-	void pop() { data.pop(); }
+	void push(PartyQueue & element, const  Date  & a);// { data.push(element); }
+	void pop() { 
+		map<Date, PartyQueue>::iterator it;
+		it = data.begin();
+		data.erase(it);
+	}
 	PartyQueue  top();// {return  data.top(); }
 };
 PartyQueue   QueueHousing::top()
 {
-	PartyQueue c = data.top();
+	map<Date, PartyQueue>::iterator it;
+	it = data.begin();
+	PartyQueue c = it->second;
 	try
 	{
-		if (Date() < c.GetD())
+		if (Date() < it->first)
 			throw future_date();
 	}
 	catch (future_date)
@@ -145,23 +152,26 @@ PartyQueue::PartyQueue(const PartyQueue &  sourse)
 }*/
 bool operator < (const PartyQueue & left,const PartyQueue & right)
 {
-	return !(left.date < right.date);
+	return 1;//!(left.date < right.date);
 }
-QueueHousing::QueueHousing( PartyQueue * sourse, int n)
+QueueHousing::QueueHousing( PartyQueue * sourse, Date * key, int n)
 {
 	for (int i = 0; i < n; i++)
 	{
-		data.push(sourse[i]);
+		const Date a = key[i];
+		//data.insert({ a, sourse[i] });
+		data[a] = sourse[i];
 	}
 
 }
-void QueueHousing::push(PartyQueue & element)
+void QueueHousing::push(PartyQueue & element,const  Date  & a)
 {
 	try 
 	{
-		if (!(element.GetD() == Date()))
+		if (!( Date() == a))
 			throw not_date();
-		data.push(element);
+	//	data.insert(pair< Date, PartyQueue>(element.GetD(), element));
+		data[a] = element;
 	}
 	catch (not_date)
 	{
